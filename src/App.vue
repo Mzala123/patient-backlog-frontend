@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    {{message}}
+   
     <v-main>
       <router-view/>
     </v-main>
