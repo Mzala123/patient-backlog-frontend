@@ -2,11 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import registerView  from '../views/registerView.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+
 
 Vue.use(VueRouter)
-Vue.use(VueAxios, axios)
+
 
 const routes = [
   {

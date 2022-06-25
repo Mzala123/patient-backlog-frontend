@@ -1,51 +1,95 @@
 <template>
-    
-    <v-card
-       elevation="1"
-      :loading="loading"
-      class="mx-auto my-14"
-      max-width="350"
-    >
-      <template slot="progress">
-        <v-progress-linear
-          color="deep-purple"
-          height="10"
-          indeterminate
-        ></v-progress-linear>
-      </template>
-  
-      <!--<v-img
-        height="100"
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      ></v-img> -->
-  
-      <v-card-title>Patient Account</v-card-title>
-      <v-divider class="mx-4"></v-divider>
-     <form ref="form" v-on:submit.prevent="signUp" enctype="multipart/form-data">
-     <v-card-text>
-            <v-text-field v-model="name" height="25" label="Fullname" outlined dense></v-text-field>
-            <v-text-field v-model="email" height="25" label="Useremail" outlined dense></v-text-field> 
-            <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min]"
-              :type="show1 ? 'text' : 'password'"
-              name="input-10-1"
-              label="Password"
-              hint="At least 8 characters"
-              @click:append="show1 = !show1"
-            ></v-text-field>
-        
-         <v-btn small color="primary" width="320" :loading="loading" type="submit">
-              Register
-            </v-btn>
-     </v-card-text>
-     </form>
-    </v-card>
- 
+  <v-container fluid class="mt-10">
+   <v-row align-content="center" justify="center" class="ml-10 mr-10">
+             <v-col cols="12" sm="5" md="5">
+               <v-card class="elevation-1" id="auth-inner" :loading="loading">
+                  <template slot="progress">
+                <v-progress-linear color="#1DA1F2"
+                  height="4"
+                  indeterminate
+                ></v-progress-linear>
+              </template>
+                       <v-row>
+                          <v-col cols="12" sm="12" md="12">
+                             <v-card-text class="mt-8">
+                              <h2 class="text-center display-1 #1DA1F2--text text">
+                                   Create Account                          
+                                 </h2>
+                                     <v-card-title class="d-flex align-center justify-center">
+                                       <!-- src="@/assets/lin_logo.png" -->
+                                   <v-img
+                                    
+                                     max-height ="60px"
+                                     max-width = "60px"
+                                     alt="logo"
+                                     class="me-1"
+                                   > 
+                                   </v-img>
+                                  </v-card-title>
+                                    <h4 class="text-center  mb-4" >
+                                      Ensure Your email for registration
+                                    </h4>
+                                     <v-form>
+                              
+                                   <v-text-field
+                                    dense
+                                    outlined
+                                    label="Username"
+                                    prepend-inner-icon="person"
+                                    color="#1DA1F2"
+                                  ></v-text-field>
+
+
+                                   <v-text-field
+                                    dense
+                                    outlined
+                                    label="Email"
+                                   
+                                    prepend-inner-icon="email"
+                                    color="#1DA1F2"
+                                  ></v-text-field>
+
+                                      <v-text-field
+                                    dense
+                                    outlined
+                                    label="Password"
+                                    
+                                    prepend-inner-icon="lock"
+                                    color="#1DA1F2"
+                                  ></v-text-field>
+
+                                      <div class="text-center mb-4">
+                                        <v-btn color='#1DA1F2' block dark>
+                                              SIGN UP
+                                        </v-btn>
+                                      </div>
+                                      <v-divider class="mb-3"></v-divider>
+                                       <h4 class="text-center mt-1 mb-2"> 
+                                         Already have an account? 
+                                            <v-btn   x-small outlined="" color='#1DA1F2' dense dark @click="step++">
+                                             Sign In
+                                           </v-btn>
+                                       </h4>
+                                 </v-form>
+
+                               </v-card-text> 
+                               <div class="text-center">
+                                   
+                               </div>
+
+                          </v-col> 
+                       </v-row>
+               </v-card>
+
+             </v-col>
+               
+           </v-row>
+ </v-container>
 </template>
 
 <script>
 import axios  from 'axios'
-/*import variables from '../views/variables.js'*/
+import config from '@/config';
 export default{
     name: "registerView",
     data(){
@@ -58,7 +102,6 @@ export default{
             loading: false,
        rules: {
         required: value => !!value || 'Required.',
-       /* min: v => v.length >= 8 || 'Min 8 characters',*/
         emailMatch: () => (`The email and password you entered don't match`),
       },
         }
@@ -70,7 +113,7 @@ export default{
           }else{
                this.loading = true
                 axios
-                .post("http://localhost:3000/api/register",{
+                .post(`${config.API_URL}/register`,{
                     name: this.name,
                     email: this.email,
                     password: this.password
@@ -80,7 +123,10 @@ export default{
                     }else if(response.data.status === 400){
                         alert("There was an error creating a user account");
                     }    
-                }).catch()
+                }).catch((err)=>{
+                   alert("error creating an account", err)
+                   console.log(err)
+                })
           }
       
         }
