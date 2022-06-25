@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="mt-10">
+  <v-container fluid class="my-application mt-10">
    <v-row align-content="center" justify="center" class="ml-10 mr-10">
              <v-col cols="12" sm="5" md="5">
                <v-card class="elevation-1" id="auth-inner" :loading="loading">
@@ -12,9 +12,9 @@
                        <v-row>
                           <v-col cols="12" sm="12" md="12">
                              <v-card-text class="mt-8">
-                              <h2 class="text-center display-1 #1DA1F2--text text">
+                              <h3 class="text-center display-1 #1DA1F2 --text text">
                                    Create Account                          
-                                 </h2>
+                                 </h3>
                                      <v-card-title class="d-flex align-center justify-center">
                                        <!-- src="@/assets/lin_logo.png" -->
                                    <v-img
@@ -35,16 +35,19 @@
                                     dense
                                     outlined
                                     label="Username"
+                                    v-model="username"
                                     prepend-inner-icon="person"
                                     color="#1DA1F2"
                                   ></v-text-field>
 
 
                                    <v-text-field
+                                    @keyup="check_email_available"
+                                    v-model="email"
                                     dense
                                     outlined
                                     label="Email"
-                                   
+                                    
                                     prepend-inner-icon="email"
                                     color="#1DA1F2"
                                   ></v-text-field>
@@ -53,20 +56,20 @@
                                     dense
                                     outlined
                                     label="Password"
-                                    
+                                    v-model="password"
                                     prepend-inner-icon="lock"
                                     color="#1DA1F2"
                                   ></v-text-field>
 
                                       <div class="text-center mb-4">
-                                        <v-btn color='#1DA1F2' block dark>
+                                        <v-btn v-on:click="signUp" color='#1DA1F2' block dark>
                                               SIGN UP
                                         </v-btn>
                                       </div>
                                       <v-divider class="mb-3"></v-divider>
                                        <h4 class="text-center mt-1 mb-2"> 
                                          Already have an account? 
-                                            <v-btn   x-small outlined="" color='#1DA1F2' dense dark @click="step++">
+                                            <v-btn  x-small outlined="" color='#1DA1F2' dense dark @click="step++">
                                              Sign In
                                            </v-btn>
                                        </h4>
@@ -96,9 +99,9 @@ export default{
         return {
             show1:false,
             user: [],
-            name: "",
-            email: "",
-            password:"",
+            username: null,
+            email: null,
+            password:null,
             loading: false,
        rules: {
         required: value => !!value || 'Required.',
@@ -107,6 +110,18 @@ export default{
         }
     },
     methods:{
+
+        check_email_available(){
+             axios
+               .post(`${config.API_URL}/read_one_user`,{
+                email: this.email
+               }).then((response)=>{
+                if(response.data.status === 200){  
+                   console.log("Email already in use with another account!")
+                }
+               })
+        },
+
         signUp(){
           if(!this.name || !this.email || !this.password){
              alert("Please fill in all fields");
@@ -129,7 +144,9 @@ export default{
                 })
           }
       
-        }
+        },
+
+        
     },
     mounted() {
 
