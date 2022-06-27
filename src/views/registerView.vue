@@ -57,6 +57,7 @@
                                     outlined
                                     label="Password"
                                     v-model="password"
+                                    type="password"
                                     prepend-inner-icon="lock"
                                     color="#1DA1F2"
                                   ></v-text-field>
@@ -69,9 +70,9 @@
                                       <v-divider class="mb-3"></v-divider>
                                        <h4 class="text-center mt-1 mb-2"> 
                                          Already have an account? 
-                                            <v-btn  x-small outlined="" color='#1DA1F2' dense dark @click="step++">
-                                             Sign In
-                                           </v-btn>
+                                           <router-link v-bind:to="'/'">
+                                               Sign In
+                                           </router-link>
                                        </h4>
                                  </v-form>
 
@@ -93,6 +94,9 @@
 <script>
 import axios  from 'axios'
 import config from '@/config';
+// import VueSweetAlert from "vue-sweetalert2"
+
+
 export default{
     name: "registerView",
     data(){
@@ -112,30 +116,33 @@ export default{
     methods:{
 
         check_email_available(){
-             axios
-               .post(`${config.API_URL}/read_one_user`,{
-                email: this.email
-               }).then((response)=>{
-                if(response.data.status === 200){  
-                   console.log("Email already in use with another account!")
-                }
-               })
+           console.log("You hit me")
+            //  axios
+            //    .post(`${config.API_URL}/read_one_user`,{
+            //     email: this.email
+            //    }).then((response)=>{
+            //     if(response.data.status === 200){  
+            //        console.log("Email already in use with another account!")
+            //     }
+            //    })
         },
 
         signUp(){
-          if(!this.name || !this.email || !this.password){
-             alert("Please fill in all fields");
+          if(!this.username || !this.email || !this.password){
+                 alert("Please fill in all required fields!")
           }else{
-               this.loading = true
+                this.loading = true
                 axios
                 .post(`${config.API_URL}/register`,{
-                    name: this.name,
+                    name: this.username,
                     email: this.email,
                     password: this.password
                 }).then((response)=>{
-                    if(response.data.status === 200){
+                    if(response.status === 201){
+                        this.loading = false
                         alert("Account created successfully")
-                    }else if(response.data.status === 400){
+                        this.$router.push({path:"/"})
+                    }else if(response.status === 400){
                         alert("There was an error creating a user account");
                     }    
                 }).catch((err)=>{
