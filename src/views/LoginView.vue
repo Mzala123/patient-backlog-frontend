@@ -80,6 +80,7 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import swal from 'sweetalert';
 
 export default{
       name: 'LoginView',
@@ -91,6 +92,7 @@ export default{
             email: null,
             password:null,
             loading: false,
+            res: null,
         }
 
       },
@@ -98,18 +100,32 @@ export default{
       methods:{
            signIn(){
               if(!this.email || !this.password){
-                alert("Please fill in all required fields")
+                swal({
+                    text: "Please fill in all required fields!",
+                    icon: "warning",
+                    dangerMode: true,
+                })
               }else{
+                this.loading = true
                 axios
                    .post(`${config.API_URL}/login`,{
                        email: this.email,
                        password: this.password
                    }).then((response)=>{
                      if(response.status === 200){
-                        this.$router.push({path:"/home"})
+                                this.loading = false
+                                this.$router.push({path:"/home"})        
+                     }else if(response.status === 401){
+                              swal({
+                                text: "Incorrect credentials!",
+                                icon: "warning",
+                                dangerMode: true,
+                             })
                      }
-                   }).catch((err)=>{
-                      console.log(err)
+                   }).catch((error)=>{
+                     console.log("The problem is "+error)
+                     console.log("The response is"+this.res)
+                     
                    })
               }
            }

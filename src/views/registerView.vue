@@ -94,6 +94,7 @@
 <script>
 import axios  from 'axios'
 import config from '@/config';
+import swal from 'sweetalert';
 // import VueSweetAlert from "vue-sweetalert2"
 
 
@@ -129,7 +130,11 @@ export default{
 
         signUp(){
           if(!this.username || !this.email || !this.password){
-                 alert("Please fill in all required fields!")
+                swal({
+                  title:'Warning',
+                  text:"Please fill in all required fields",
+                  icon: "warning"
+                })
           }else{
                 this.loading = true
                 axios
@@ -140,8 +145,17 @@ export default{
                 }).then((response)=>{
                     if(response.status === 201){
                         this.loading = false
-                        alert("Account created successfully")
-                        this.$router.push({path:"/"})
+                          swal({
+                                title:"Information",
+                                text: "User Created Successfully!",
+                                icon: "success",
+                             })
+                             .then((ok=>{
+                              if(ok){
+                                 this.$router.push({path:"/"})
+                              }      
+                             }))
+                                  
                     }else if(response.status === 400){
                         alert("There was an error creating a user account");
                     }    
