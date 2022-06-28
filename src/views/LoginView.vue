@@ -115,17 +115,24 @@ export default{
                      if(response.status === 200){
                                 this.loading = false
                                 this.$router.push({path:"/home"})        
-                     }else if(response.status === 401){
-                              swal({
+                     }
+                   }).catch((error)=>{
+                           const{status} = error.response
+                           if(status === 401){
+                             this.loading = false
+                             swal({
                                 text: "Incorrect credentials!",
                                 icon: "warning",
                                 dangerMode: true,
                              })
-                     }
-                   }).catch((error)=>{
-                     console.log("The problem is "+error)
-                     console.log("The response is"+this.res)
-                     
+                           }else{
+                            this.loading = false
+                            swal({
+                                text: "Check your network connection!",
+                                icon: "warning",
+                                dangerMode: true,
+                             })
+                           }
                    })
               }
            }

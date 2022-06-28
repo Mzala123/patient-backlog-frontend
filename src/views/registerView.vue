@@ -63,7 +63,11 @@
                                   ></v-text-field>
 
                                       <div class="text-center mb-4">
-                                        <v-btn v-on:click="signUp" color='#1DA1F2' block dark>
+                                        <v-btn 
+                                        v-bind:disabled=disabled
+                                        v-on:click="signUp" 
+                                        color='#1DA1F2' 
+                                        block dark>
                                               SIGN UP
                                         </v-btn>
                                       </div>
@@ -105,6 +109,7 @@ export default{
             show1:false,
             user: [],
             username: null,
+            disabled: false,
             email: null,
             password:null,
             loading: false,
@@ -117,15 +122,29 @@ export default{
     methods:{
 
         check_email_available(){
-           console.log("You hit me")
-            //  axios
-            //    .post(`${config.API_URL}/read_one_user`,{
-            //     email: this.email
-            //    }).then((response)=>{
-            //     if(response.data.status === 200){  
-            //        console.log("Email already in use with another account!")
-            //     }
-            //    })
+              axios
+               .get(`${config.API_URL}/read_one_user/`+this.email)
+               .then((response)=>{
+                if(response.status === 200){  
+                   this.disabled = true
+                   this.user = response.data
+                   console.log(this.user.message)
+                }
+               }).catch((error)=>{
+                  const {status} = error.response
+                  console.log(status)
+                  if(status === 404){
+                      this.disabled = false
+                  }else{
+                    this.disabled = false
+                    swal({
+                                title:"Warning",
+                                text: "Check your network connection!",
+                                icon: "warning",
+                        })
+                  }
+                  
+               })
         },
 
         signUp(){
@@ -156,19 +175,29 @@ export default{
                               }      
                              }))
                                   
-                    }else if(response.status === 400){
-                        alert("There was an error creating a user account");
-                    }    
-                }).catch((err)=>{
-                   alert("error creating an account", err)
-                   console.log(err)
-                })
+                    }  
+                }).catch((error)=>{
+                  const {status} = error.response
+                  console.log(status)
+                  if(status === 400){
+                    swal({
+                                title:"Error",
+                                text: "Failed to create user account!",
+                                icon: "error",
+                        })
+                  }else{
+                    swal({
+                                title:"Warning",
+                                text: "Check your network connection!",
+                                icon: "warning",
+                        })
+                  }
+                  
+               })
+             }
           }
-      
         },
 
-        
-    },
     mounted() {
 
     }
