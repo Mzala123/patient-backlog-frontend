@@ -2,7 +2,7 @@
      <v-container fluid>
 
         <v-row justify="center" >
-           <v-col cols="8">
+           <v-col  class="col-md-8 sm-8">
                   <v-card class="mt-10" elevation="1">
                     <v-system-bar
                         class="mr-5 ml-3 pt-1"
@@ -75,7 +75,7 @@
 <script>
 export default {
     name: 'AddPatient',
-    //vuetify: new Vuetify(),
+  
     data(){
         return{
              genderOptions: ['Male', 'Female']
