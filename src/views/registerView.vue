@@ -11,10 +11,10 @@
               </template>
                        <v-row>
                           <v-col cols="12" sm="12" md="12">
-                             <v-card-text class="mt-8">
-                              <h3 class="text-center display-1 #1DA1F2 --text text">
+                             <v-card-text class="mt-4">
+                              <h1 class="text-center #1DA1F2 --text text">
                                    Create Account                          
-                                 </h3>
+                                 </h1>
                                      <v-card-title class="d-flex align-center justify-center">
                                        <!-- src="@/assets/lin_logo.png" -->
                                    <v-img
@@ -26,11 +26,26 @@
                                    > 
                                    </v-img>
                                   </v-card-title>
-                                    <h4 class="text-center  mb-4" >
-                                      Ensure Your email for registration
-                                    </h4>
                                      <v-form>
-                              
+                                  
+                                     <div
+                                        v-show="show"
+                                        flat
+                                        outlined
+                                        style="color:red;"
+                                        class="mb-4 ml-4"
+                                      >
+                                      <v-icon
+                                        dense
+                                        small
+                                        color="red"
+                                        class="pb-1"
+                                      >
+                                        mdi-alert
+                                      </v-icon>
+                                        Email already in use with another account
+                                      </div>
+
                                    <v-text-field
                                     dense
                                     outlined
@@ -47,10 +62,10 @@
                                     dense
                                     outlined
                                     label="Email"
-                                    
                                     prepend-inner-icon="email"
                                     color="#1DA1F2"
                                   ></v-text-field>
+
 
                                       <v-text-field
                                     dense
@@ -110,6 +125,7 @@ export default{
             user: [],
             username: null,
             disabled: false,
+            show: false,
             email: null,
             password:null,
             loading: false,
@@ -120,13 +136,13 @@ export default{
         }
     },
     methods:{
-
         check_email_available(){
               axios
                .get(`${config.API_URL}/read_one_user/`+this.email)
                .then((response)=>{
                 if(response.status === 200){  
                    this.disabled = true
+                   this.show = true
                    this.user = response.data
                    console.log(this.user.message)
                 }
@@ -135,8 +151,10 @@ export default{
                   console.log(status)
                   if(status === 404){
                       this.disabled = false
+                      this.show = false
                   }else{
                     this.disabled = false
+                    this.show = false
                     swal({
                                 title:"Warning",
                                 text: "Check your network connection!",

@@ -12,9 +12,9 @@
                        <v-row>
                           <v-col cols="12" sm="12" md="12">
                              <v-card-text class="mt-8">
-                              <h4 class="text-center display-1 #1DA1F2 --text text">
-                                   Welcome To FHIR HealthCare                       
-                                 </h4>
+                              <h1 class="text-center #1DA1F2 --text text">
+                                   FHIR HealthCare                       
+                                 </h1>
                                      <v-card-title class="d-flex align-center justify-center">
                                        <!-- src="@/assets/lin_logo.png" -->
                                    <v-img
@@ -111,11 +111,13 @@ export default{
                    .post(`${config.API_URL}/login`,{
                        email: this.email,
                        password: this.password
-                   }).then((response)=>{
+                   }
+                   ).then((response)=>{
                      if(response.status === 200){
                                 this.loading = false
                                 this.$router.push({path:"/home"})        
                      }
+                     
                    }).catch((error)=>{
                            const{status} = error.response
                            if(status === 401){
