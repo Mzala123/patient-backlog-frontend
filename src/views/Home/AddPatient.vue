@@ -3,7 +3,7 @@
 
         <v-row justify="center" >
            <v-col  class="col-md-8 sm-8">
-                  <v-card class="mt-10" elevation="1">
+                  <v-card class="mt-10" elevation="1" outlined>
                     <v-system-bar
                         class="mr-5 ml-3 pt-1"
                         dark
