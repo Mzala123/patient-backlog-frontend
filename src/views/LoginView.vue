@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="my-application mt-10">
    <v-row align-content="center" justify="center" class="ml-10 mr-10">
-             <v-col  class="col-md-4 sm-8">
+             <v-col  class="col-md-4 sm-12">
                <v-card class="elevation-1" id="auth-inner" :loading="loading">
                   <template slot="progress">
                 <v-progress-linear color="#1DA1F2"

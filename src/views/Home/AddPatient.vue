@@ -52,6 +52,7 @@
                                 :items="genderOptions"
                                 label="Gender(mandotory)"
                                 required
+                                append-icon="mdi-menu-down-outline"
                                 ></v-select>
 
 
