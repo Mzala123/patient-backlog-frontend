@@ -11,7 +11,7 @@ export default new Vuetify({
      },
      theme:{
         themes: {
-            background: '#D7DFDF'
+            background: '#ffffff'
             // font-family: "Poppins" ,
             // font-size: 12px;
         }
