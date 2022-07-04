@@ -23,6 +23,7 @@
             :headers="headers"
             :items="patients"
             :search="search"
+          
           >
           
           <template #[`item.actions`]="{ item }">
