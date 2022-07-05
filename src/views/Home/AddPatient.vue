@@ -54,7 +54,7 @@
                                 :items="genderOptions"
                                 label="Gender"
                                 required
-                                append-icon="mdi-menu-down-outline"
+                                
                                 ></v-select>
                             
                             <v-text-field
@@ -83,7 +83,7 @@
                                 :items="occupationOptions"
                                 label="Occupation"
                                 required
-                                append-icon="mdi-menu-down-outline"
+                               
                                 ></v-select>
 
                               <v-text-field
