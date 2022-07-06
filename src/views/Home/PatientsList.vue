@@ -28,7 +28,9 @@
               <v-icon small class="mr-2" @click="addHealthRecord(item._id)">
                 mdi-plus-box
               </v-icon>
-              <v-icon color="primary" small @click="viewHealthRecord(item._id)">
+              <v-icon color="primary" 
+               small 
+               @click="viewHealthRecord(item._id)">
                 mdi-eye
               </v-icon>
             </template>
@@ -129,16 +131,13 @@
         </v-system-bar>
         <v-card-text class="py-0">
       
-        <v-timeline dense>
-          <v-slide-x-reverse-transition
-            group
-            hide-on-leave
-          >
+        <v-timeline dense v-if=" patient.health_record && patient.health_record.length > 0">
             <v-timeline-item
                v-for="record in patient.health_record" 
               :key="record._id"
               small
               fill-dot
+             
             >
              <v-card
               color="primary"
@@ -149,7 +148,8 @@
             color="primary"
             style="color: white; font-weight: bold; font-size:14px;"
           >
-           {{record.diagnosis}}
+           
+           {{record.diagnosis}} 
           </v-card-title>
 
         
@@ -162,11 +162,9 @@
            
           </v-card-text>
         </v-card>
-
             </v-timeline-item>
-
-          </v-slide-x-reverse-transition>
         </v-timeline>
+        <p class="mt-4 pb-4">No health record for this patient!</p>
       </v-card-text>
       </v-card>
     </v-dialog>
