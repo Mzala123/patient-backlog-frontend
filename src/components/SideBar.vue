@@ -60,14 +60,85 @@
          <v-toolbar-title>Fhir Health Care</v-toolbar-title>
   
         <v-spacer></v-spacer>
-  
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-  
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+
+          <v-menu   
+          
+          v-model="menu"
+          bottom
+          right
+          :rounded="rounded"
+          offset-y
+          transition="scale-transition"
+          origin="top left"
+        >
+          <template v-slot:activator="{ on }">
+            <v-chip
+              pill
+              v-on="on"
+            >
+              <v-badge
+              bordered
+              bottom
+              color="green accent-5"
+              dot
+              offset-x="10"
+              offset-y="10"
+            >
+                  <v-icon left>
+                mdi-account-circle-outline
+              </v-icon>
+            </v-badge>
+
+               {{username}}
+            </v-chip>
+            
+          </template>
+          <v-card width="300">
+
+            <v-list>
+            
+            <v-list-item>
+                <v-list-item-avatar>
+                   <v-badge
+                    bordered   
+                    bottom
+                    color="green accent-5"
+                    dot
+                    offset-x="10"
+                    offset-y="10"
+                  >
+                  <v-icon left>
+                    mdi-account-circle-outline
+                  </v-icon>
+                  </v-badge>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title> {{username}}</v-list-item-title>
+                  <v-list-item-subtitle>{{email}}</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-btn
+                    icon
+                    @click="menu = false"
+                  >
+                    <v-icon>mdi-close-circle</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
+             <v-divider></v-divider>
+            <v-list>
+              <v-list-item @click="signOut">
+                <v-list-item-action class="">
+                  <v-icon>mdi-logout</v-icon>
+                </v-list-item-action>
+                <v-list-item-subtitle>Sign-out</v-list-item-subtitle>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
+
+       
 
   </v-app-bar>
       <router-view></router-view>
@@ -78,20 +149,32 @@
 export default {
     data(){
         return {
+           username: null,
+           email: null,
            drawer: true,
+           menu:false,
            selectedItem: 0,
     items: [
       { title: 'Dashboard', icon: 'mdi-view-dashboard', name:'home-dashboard'},
       { title: 'Add Patients', icon: 'mdi-human-male-female', name:'add-patient'},
       { title: 'Patients List', icon: 'mdi-human-male-female', name:'patients-list'},
       { title: 'User List', icon: 'mdi-table-of-contents', name: 'users-list'}
-      //{ title: 'Sign Out', icon: 'logout', name: 'sign-out'}*/
+     
     ],   
     mini: true,
+
         }
     },
     methods: {
-       
+       signOut(){
+        this.$router.push({path:'/'})
+       }
+    },
+
+    mounted(){
+       this.username = JSON.parse(sessionStorage.getItem("username"))
+       console.log(this.username)
+       this.email = JSON.parse(sessionStorage.getItem("email"))
     }
    
 }

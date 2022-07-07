@@ -45,6 +45,7 @@
                                     v-model="password"
                                     prepend-inner-icon="lock"
                                     color="#1DA1F2"
+                                    @keypress.enter="signIn"
                                   ></v-text-field>
 
                                       <div class="text-center mb-4">
@@ -114,6 +115,10 @@ export default{
                    }
                    ).then((response)=>{
                      if(response.status === 200){
+                                sessionStorage.setItem("Authorization", response.data.token)
+                                sessionStorage.setItem("username", JSON.stringify(response.data.name))
+                                // console.log(sessionStorage.getItem("username"))
+                                sessionStorage.setItem("email", JSON.stringify(response.data.email))
                                 this.loading = false
                                 this.$router.push({path:"/home"})        
                      }

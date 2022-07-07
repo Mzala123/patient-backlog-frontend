@@ -75,6 +75,7 @@
                                     type="password"
                                     prepend-inner-icon="lock"
                                     color="#1DA1F2"
+                                    @keypress.enter="signUp"
                                   ></v-text-field>
 
                                       <div class="text-center mb-4">
