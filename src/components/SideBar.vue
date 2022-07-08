@@ -166,6 +166,7 @@ export default {
     },
     methods: {
        signOut(){
+        
         this.$router.push({path:'/'})
        }
     },
