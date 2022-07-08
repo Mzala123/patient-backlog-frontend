@@ -164,7 +164,7 @@
         </v-card>
             </v-timeline-item>
         </v-timeline>
-        <p class="mt-4 pb-4">No health record for this patient!</p>
+        <p class="mt-4 pb-4" v-else>No health record for this patient!</p>
       </v-card-text>
       </v-card>
     </v-dialog>

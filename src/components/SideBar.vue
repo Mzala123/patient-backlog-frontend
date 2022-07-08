@@ -16,13 +16,13 @@
          <v-subheader  class="text-center mx-auto mt-2 mb-2 ml-2">
         <v-avatar  size="80">
               <!-- <v-img
-              src="@/assets/lin_logo.png"
-              max-height ="30px"
-              max-width = "30px"
-              alt="logo"
-              class="me-1"
-          > 
-          </v-img> -->
+                  src="@/assets/lin_logo.png"
+                  max-height ="30px"
+                  max-width = "30px"
+                  alt="logo"
+                  class="me-1"
+                > 
+              </v-img> -->
           <h3 class="mr-2">FHIR int.</h3> 
         </v-avatar>
         </v-subheader>
@@ -58,7 +58,6 @@
           <v-icon>mdi-menu</v-icon>
         </v-app-bar-nav-icon> 
          <v-toolbar-title>Fhir Health Care</v-toolbar-title>
-  
         <v-spacer></v-spacer>
 
           <v-menu   
@@ -66,7 +65,7 @@
           v-model="menu"
           bottom
           right
-          :rounded="rounded"
+          rounded  
           offset-y
           transition="scale-transition"
           origin="top left"

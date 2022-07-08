@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/home_dashboard',
     component: SideBar,
     children: [
       {

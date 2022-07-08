@@ -120,7 +120,7 @@ export default{
                                 // console.log(sessionStorage.getItem("username"))
                                 sessionStorage.setItem("email", JSON.stringify(response.data.email))
                                 this.loading = false
-                                this.$router.push({path:"/home"})        
+                                this.$router.push({path:"/home_dashboard"})        
                      }
                      
                    }).catch((error)=>{
