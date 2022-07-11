@@ -30,24 +30,65 @@
           </v-row>
          </v-alert>
         </v-col>
-
-      
     </v-row>
+    
+     <v-row class="ma-0 pa-0">
+              <v-col cols="12" md="6" sm="6"
+          >
+          <v-card>
+          <div id="chart">
+              <apexchart 
+              type="pie" width="400" 
+              :options="chartOptions" 
+              :series="series"></apexchart> 
+          </div>  
+          </v-card>   
+        </v-col>
+         </v-row>
+   
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import config from "@/config";
+//import apexchart from 'vue-apexcharts'
+import VueApexCharts from 'vue-apexcharts'
 
 
 export default {
   name: "DashboardView",
+  components:{
+  apexchart: VueApexCharts
+  },
+
   data() {
     return {
       users: null,
       patients: null,
-      patient: []
+      patient: [],
+      series: [],
+      count: 0,
+
+      chartOptions: {
+            chart: {
+              width: 380,
+              height: 400,
+              type: 'pie',
+            },
+            labels: [],
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }],
+            }
     };
   },
   methods: {
@@ -78,6 +119,11 @@ export default {
             if(response.status == 200){
                 this.patient = response.data
                 console.log(this.patient)
+                for(this.count=0; this.count<this.patient.length; this.count++){
+                    this.chartOptions.labels.push(this.patient[this.count]._id)
+                    this.series.push(this.patient[this.count].patientCount)
+                }
+
             }
           })
     }
