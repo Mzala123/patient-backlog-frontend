@@ -138,7 +138,7 @@ export default {
              district: null,
              village: null,
              occupation: null,
-             birthdate: null
+             birthdate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             
         }
     },

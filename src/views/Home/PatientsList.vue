@@ -149,7 +149,10 @@
             style="color: white; font-weight: bold; font-size:14px;"
           >
            
-           {{record.diagnosis}} 
+           {{ record.diagnosis.split("|").pop() }} 
+
+            <v-btn :href="'https://www.icd10data.com/ICD10CM/Codes/' +
+                          record.diagnosis.split('|').shift()" target="blank" small>View Diagnosis</v-btn>
           </v-card-title>
 
         
@@ -181,15 +184,6 @@ export default {
   name: "PatientList",
   data() {
     return {
-
-     
-    //    items: [
-    //   {
-    //     id: 1,
-    //     color: 'info'
-    //   }
-    // ],
-
 
       patients: [],
       patient:[],
