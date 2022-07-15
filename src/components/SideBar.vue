@@ -74,6 +74,7 @@
             <v-chip
               pill
               v-on="on"
+              class="overflow-auto"
             >
               <v-badge
               bordered
@@ -88,7 +89,7 @@
               </v-icon>
             </v-badge>
 
-               {{username}}
+            <span class="d-none d-sm-block"> {{username}}</span>  
             </v-chip>
             
           </template>
@@ -166,7 +167,7 @@ export default {
     },
     methods: {
        signOut(){
-        
+
         this.$router.push({path:'/'})
        }
     },
