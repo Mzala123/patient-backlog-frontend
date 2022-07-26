@@ -44,7 +44,10 @@
           </div>  
           </v-card>   
         </v-col>
-         </v-row>
+        <v-col cols="12" md="6" sm="6">
+             <TrialPusher />
+        </v-col>
+     </v-row>
    
   </v-container>
 </template>
@@ -54,13 +57,15 @@ import axios from "axios";
 import config from "@/config";
 //import apexchart from 'vue-apexcharts'
 import VueApexCharts from 'vue-apexcharts'
-
+import TrialPusher from './TrialPusher.vue'
 
 export default {
   name: "DashboardView",
   components:{
-  apexchart: VueApexCharts
-  },
+    apexchart: VueApexCharts,
+    TrialPusher,
+  
+},
 
   data() {
     return {
