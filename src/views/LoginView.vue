@@ -82,6 +82,9 @@
 import axios from 'axios'
 import config from '@/config'
 import swal from 'sweetalert';
+import { mapMutations } from 'vuex';
+import store from  '../store'
+
 
 export default{
       name: 'LoginView',
@@ -89,9 +92,10 @@ export default{
         return{
             show1:false,
             user: [],
-            username: null,
             email: null,
             password:null,
+            username: null,
+           
             loading: false,
             res: null,
         }
@@ -99,7 +103,12 @@ export default{
       },
 
       methods:{
-           signIn(){
+          // ...mapActions(['Login']),
+          //  signIn(){
+          //     this.Login(this.user)
+          //  },
+          ...mapMutations(['setUser']),
+          signIn(){
               if(!this.email || !this.password){
                 swal({
                     text: "Please fill in all required fields!",
@@ -115,10 +124,13 @@ export default{
                    }
                    ).then((response)=>{
                      if(response.status === 200){
-                                sessionStorage.setItem("Authorization", response.data.token)
-                                sessionStorage.setItem("username", JSON.stringify(response.data.name))
-                                // console.log(sessionStorage.getItem("username"))
+                                //sessionStorage.setItem("Authorization", response.data.token)
+                                store.commit('setUser', response.data.name)
+                                console.log("The username is ku store ukututu "+response.data.name)
+                                // sessionStorage.setItem("username", JSON.stringify(response.data.name))
+                                sessionStorage.setItem("_id", JSON.stringify(response.data._id))
                                 sessionStorage.setItem("email", JSON.stringify(response.data.email))
+                                console.log(response.data)
                                 this.loading = false
                                 this.$router.push({path:"/home_dashboard"})        
                      }
@@ -146,4 +158,11 @@ export default{
       }
 }
 </script>
+
+<style scoped>
+.body{
+  font-family: Poppins;
+}
+
+</style>
 

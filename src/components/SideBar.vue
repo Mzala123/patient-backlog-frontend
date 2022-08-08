@@ -89,7 +89,7 @@
               </v-icon>
             </v-badge>
 
-            <span class="d-none d-sm-block"> {{username}}</span>  
+            <span class="d-none d-sm-block"> {{store.state.username}}</span>  
             </v-chip>
             
           </template>
@@ -113,7 +113,7 @@
                   </v-badge>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title> {{username}}</v-list-item-title>
+                  <v-list-item-title> {{store.state.username}}</v-list-item-title>
                   <v-list-item-subtitle>{{email}}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
@@ -146,36 +146,53 @@
 </template>
 
 <script>
+
+// import { mapGetters } from 'vuex'
+import store from '../store'
+
+
 export default {
     data(){
         return {
-           username: null,
            email: null,
            drawer: true,
            menu:false,
            selectedItem: 0,
+           store,
+         
+          
+
     items: [
       { title: 'Dashboard', icon: 'mdi-view-dashboard', name:'home-dashboard'},
       { title: 'Add Patients', icon: 'mdi-human-male-female', name:'add-patient'},
       { title: 'Patients List', icon: 'mdi-human-male-female', name:'patients-list'},
-      { title: 'User List', icon: 'mdi-table-of-contents', name: 'users-list'}
+      { title: 'User List', icon: 'mdi-table-of-contents', name: 'users-list'},
+      { title: 'Settings', icon: 'mdi-cog', name: 'setting-view'}
      
     ],   
     mini: true,
 
         }
+    }, 
+    computed: {
+       user(){
+        return store.state.username
+       }
     },
     methods: {
        signOut(){
-
         this.$router.push({path:'/'})
+       },
+
+       set_user_details(){
+       this.username = store.state.username
+       console.log("The username is "+ this.username )
+       this.email = JSON.parse(sessionStorage.getItem("email"))
        }
     },
 
     mounted(){
-       this.username = JSON.parse(sessionStorage.getItem("username"))
-       console.log(this.username)
-       this.email = JSON.parse(sessionStorage.getItem("email"))
+        this.set_user_details()
     }
    
 }

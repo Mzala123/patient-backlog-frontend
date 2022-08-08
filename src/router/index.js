@@ -8,6 +8,7 @@ import AddPatient from '@/views/Home/AddPatient.vue'
 import PatientList from '@/views/Home/PatientsList.vue'
 import DashboardView from '@/views/Home/DashboardView.vue'
 import UserList from '@/views/Home/UserList.vue'
+import SettingsView from '@/views/Home/Settings.vue'
 
 
 Vue.use(VueRouter)
@@ -38,6 +39,11 @@ const routes = [
         name: 'users-list',
         component: UserList
       },
+      {
+        path: '/settings',
+        name: 'setting-view',
+        component: SettingsView
+      }
 
       // {
       //   path: '/about',

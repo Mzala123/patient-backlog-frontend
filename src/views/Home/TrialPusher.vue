@@ -45,36 +45,20 @@
 </template>
 
 <script>
-import axios from "axios";
-import config from "@/config";
+// import axios from "axios";
+// import config from "@/config";
+import io from 'vue-socket.io'
 import VueApexCharts from "vue-apexcharts";
-import Pusher from 'pusher-js'
 
 export default {
   components: {
     apexchart: VueApexCharts,
   },
 
-  created(){
-         Pusher.logToConsole = true;
-         this.pusher = new Pusher('7886c74cb280b6831fcb', {
-         encrypted: true,
-         cluster: 'ap2'
-        });
-
-        this.channel = this.pusher.subscribe('os-pull')
-        this.channel.bind('os-vote', function(data){
-            alert(data.message)
-        })
-  },
-
   data() {
     return {
-
-      pusher:null,
-      channel: null,
-
       os: null,
+      socket: null,
       count: 0,
       series: [{ data: [0, 0, 0]}],
       chartOptions: {
@@ -93,17 +77,13 @@ export default {
     };
   },
 
+  created(){
+     this.socket = io()
+  },
+
   methods: {
     vote() {
-      axios
-        .post(`${config.API_URL}/trial_pusher`, {
-          os: this.os,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            console.log(response.data.message);
-          }
-        });
+
     },
   },
 };

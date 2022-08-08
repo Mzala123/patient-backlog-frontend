@@ -11,8 +11,11 @@
     "@capacitor/android": "^3.6.0",
     "@capacitor/cli": "^3.6.0",
     "@capacitor/core": "^3.6.0",
+    "@vue/composition-api": "^1.7.0",
+    "@vue/reactivity": "^3.2.37",
     "apexcharts": "^3.35.3",
     "axios": "^0.26.0",
+    "canvasjs": "^1.8.3",
     "core-js": "^3.8.3",
     "pusher-js": "^7.3.0",
     "sweetalert": "^2.1.2",
@@ -20,8 +23,11 @@
     "vue-apexcharts": "^1.6.2",
     "vue-axios": "^3.4.1",
     "vue-router": "^3.5.1",
+    "vue-socket.io": "^3.0.10",
     "vue-sweetalert2": "^5.0.5",
-    "vuetify": "^2.6.0"
+    "vuetify": "^2.6.0",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
