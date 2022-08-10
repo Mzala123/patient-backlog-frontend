@@ -89,7 +89,7 @@ export default{
                     console.log(this.user.name)
                    swal({
                           title:"Information",
-                          text: "User Created Successfully!",
+                          text: "Uses info updated!",
                           icon: "success",
                        })
                }
