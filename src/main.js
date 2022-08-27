@@ -8,12 +8,23 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueApexCharts from 'vue-apexcharts'
 import store from './store'
+//socket io config
+//import * as io from 'socket.io-client'
+import io from 'socket.io-client';
+import VueSocketIO from 'vue-socket.io'
 
+Vue.config.productionTip = false
+
+Vue.use(
+  new VueSocketIO({
+   debug: true,
+   connection: io('http://localhost:3000'),
+})
+);
 
 Vue.use(VueSweetalert2)
 Vue.use(VueApexCharts)
 Vue.use(VueAxios, axios)
-Vue.config.productionTip = false
 
 new Vue({
   store,
