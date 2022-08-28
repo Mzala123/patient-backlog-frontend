@@ -22,11 +22,26 @@
           </v-btn>
         </div>
         <div v-if="joined">
-          <div>
-            <v-textarea  class="mr-5 ml-5 pt-4 mb-2"
-             v-on:keyup.enter="sendMessage"
-             v-model="text"
-             filled name="input-7-4" label="Filled textarea">
+
+        <div class="list-container">
+        <div v-for="message in messages" :key="message.id">
+           <b>
+             {{message.user}}
+           </b>
+            : {{message.text}} 
+           </div>
+        </div>
+          <div class="text-input-container">
+            <v-textarea
+             rows="3"
+              class="text-message"
+              v-on:keyup.enter="sendMessage"
+              v-model="text"
+              filled
+              dense
+        
+              label="Filled textarea"
+            >
             </v-textarea>
           </div>
         </div>
@@ -36,14 +51,15 @@
 </template>
 
 <script>
-//import io from 'socket.io-client'
+import io from 'socket.io-client'
 export default {
   data() {
     return {
       socket: null,
       joined: false,
       current_user: null,
-      text:""
+      text: "",
+      messages: []
     };
   },
 
@@ -51,14 +67,44 @@ export default {
     vote() {
       console.log(this.current_user);
       this.joined = true;
-      // this.socket = io('http://localhost:3000')
+      this.socket = io('http://localhost:3000')
+      this.socket.on('message:received', (data)=>{
+        this.messages = this.messages.concat(data)
+      })
     },
-    sendMessage(){
-      console.log(this.text)
-      //this.$socket
+    sendMessage() {
+      console.log(this.text);
+       this.addMessage()
+       this.text =""
+    },
+
+    addMessage(){
+      const message = {
+        id: new Date().getTime(),
+        text: this.text,
+        user: this.current_user
+      }
+
+      this.messages = this.messages.concat(message)
+      this.socket = io('http://localhost:3000')
+      this.socket.emit("message", message)
     }
   },
 
   created() {},
 };
 </script>
+
+<style scoped>
+.text-input-container {
+  height: 50vh;
+}
+.text-message {
+  width: 100%;
+  position: absolute;
+  /* height: 30px; */
+  padding: 10px;
+  bottom: 0px;
+  box-sizing: border-box;
+}
+</style>
