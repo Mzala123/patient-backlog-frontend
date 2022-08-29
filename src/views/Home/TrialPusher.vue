@@ -85,7 +85,7 @@ export default {
         user: this.current_user
       }
 
-      this.messages = this.messages.concat(message)
+      //this.messages = this.messages.concat(message)
       this.socket = io('https://patient-backlog-api.herokuapp.com')
       this.socket.emit("message", message)
     }
