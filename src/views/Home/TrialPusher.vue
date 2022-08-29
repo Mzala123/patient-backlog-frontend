@@ -67,7 +67,7 @@ export default {
     vote() {
       console.log(this.current_user);
       this.joined = true;
-      this.socket = io('http://localhost:3000')
+      this.socket = io('https://patient-backlog-api.herokuapp.com')
       this.socket.on('message:received', (data)=>{
         this.messages = this.messages.concat(data)
       })
@@ -86,7 +86,7 @@ export default {
       }
 
       this.messages = this.messages.concat(message)
-      this.socket = io('http://localhost:3000')
+      this.socket = io('https://patient-backlog-api.herokuapp.com')
       this.socket.emit("message", message)
     }
   },
