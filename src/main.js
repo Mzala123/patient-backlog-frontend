@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 Vue.use(
   new VueSocketIO({
    debug: true,
-   connection: io('http://localhost:3000'),
+   connection: io('https://patient-backlog-api.herokuapp.com'),
 })
 );
 
